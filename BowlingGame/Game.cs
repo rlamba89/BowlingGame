@@ -50,7 +50,10 @@
                 {
                     score += Frames[i + 1].FirstThrowPins;
                 }
-               
+                else if (frame.IsStrike && i < Frames.Length - 1)
+                {
+                    score += Frames[i + 1].FirstThrowPins + Frames[i + 1].SecondThrowPins;
+                }
 
                 score += frame.FrameScore;
                 i++;

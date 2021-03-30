@@ -58,5 +58,23 @@ namespace BowlingGame.Tests
 
             Assert.Equal(26, totalScore);
         }
+
+        [Fact]
+        public void Score_WhenFrameIsStrike_ShouldIncludeNextTwoThrowPins()
+        {
+            //Arrange
+            game.Roll(1);
+            game.Roll(1); //First Frame
+
+            game.Roll(10); //Second Frame
+
+            game.Roll(5); //Third Frame
+            game.Roll(4);
+
+            //Act
+            var totalScore = game.Score();
+
+            Assert.Equal(30, totalScore);
+        }
     }
 }
