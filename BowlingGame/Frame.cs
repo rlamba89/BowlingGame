@@ -6,7 +6,7 @@ namespace BowlingGame
     {
         private readonly int TotalPins = 10;
 
-        public void Add(int pins)
+        public virtual void Add(int pins)
         {
             if (ThrowCount == 0)
             {
