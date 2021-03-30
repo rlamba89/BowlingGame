@@ -1,4 +1,6 @@
-﻿namespace BowlingGame
+﻿using System.Collections.Generic;
+
+namespace BowlingGame
 {
     public class Frame
     {
@@ -19,6 +21,8 @@
                 IsFrameCompleted = true;
                 IsStrike = true;
             }
+
+            ThrowCount++;
         }
 
         public bool IsStrike { get; private set; }
@@ -27,5 +31,6 @@
         
         public int FirstThrowPins { get; private set; }
 
+        public int ThrowCount { get; private set; }
     }
 }
