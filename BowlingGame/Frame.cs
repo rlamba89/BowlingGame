@@ -4,10 +4,12 @@ namespace BowlingGame
 {
     public class Frame
     {
-        private readonly int TotalPins = 10;
+        protected readonly int TotalPins = 10;
 
         public virtual void Add(int pins)
         {
+            if (IsFrameCompleted) throw new FrameAlreadyCompletedException("Can not add more pins.");
+
             if (ThrowCount == 0)
             {
                 AddFirstThrow(pins);
@@ -18,24 +20,24 @@ namespace BowlingGame
             }
         }
 
-
         private void AddFirstThrow(int firstKnockPins)
         {
             FirstThrowPins = firstKnockPins;
-            
+
             if (FirstThrowPins == TotalPins)
             {
                 IsFrameCompleted = true;
                 IsStrike = true;
+                ThrowCount += 2;
             }
-
-            ThrowCount++;
+            else
+            {
+                ThrowCount += 1;
+            }
         }
 
         private void AddSecondThrow(int secondKnockPins)
         {
-            if (IsFrameCompleted) throw new FrameAlreadyCompletedException("Can not add more pins.");
-
             SecondThrowPins = secondKnockPins;
 
             if (FrameScore == TotalPins)
@@ -59,6 +61,6 @@ namespace BowlingGame
 
         public int ThrowCount { get; private set; }
 
-        public int FrameScore => FirstThrowPins + SecondThrowPins;
+        public virtual int FrameScore => FirstThrowPins + SecondThrowPins;
     }
 }

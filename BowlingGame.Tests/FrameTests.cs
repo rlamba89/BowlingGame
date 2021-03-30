@@ -12,7 +12,7 @@ namespace BowlingGame.Tests
 
         [Theory]
         [InlineData(5, false, false, 1)]
-        [InlineData(10, true, true, 1)]
+        [InlineData(10, true, true, 2)]
         public void Add_WhenFirstThrow_ShouldSetCorrectProperties(int pins, bool isStrike, bool isFrameCompelted, int throwCount)
         {
             frame.Add(pins);
@@ -26,7 +26,7 @@ namespace BowlingGame.Tests
         [Theory]
         [InlineData(5, 5, true, true, 2, 10)]
         [InlineData(1, 5, false, true, 2, 6)]
-        public void Add_SecondThrow_ShouldSetSecondCorrectProperties(int firstThrowPins, int secondThrowPins, bool isSpare, bool isFrameCompelted, int throwCount, int frameScore)
+        public void Add_SecondThrow_ShouldStSecondCorrectProperties(int firstThrowPins, int secondThrowPins, bool isSpare, bool isFrameCompelted, int throwCount, int frameScore)
         {
             //Arrange
             frame = new Frame();
