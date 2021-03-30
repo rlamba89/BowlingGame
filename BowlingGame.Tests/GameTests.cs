@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace BowlingGame.Tests
@@ -40,41 +39,24 @@ namespace BowlingGame.Tests
             Assert.True(game.Frames[1].IsSpare);
         }
 
-        [Fact]
-        public void Score_WhenFrameIsSpare_ShouldIncludeNextFirstThrowPins()
+        [Theory]
+        [InlineData(new int[] { 1, 1, 5, 5, 5, 4 }, 26)]
+        [InlineData(new int[] { 1, 1, 10, 5, 4 }, 30)]
+        [InlineData(new int[] { 1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 1, 7, 3, 6, 4, 10, 2, 8, 6 }, 133)]
+        [InlineData(new int[] { 1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 1, 7, 3, 6, 4, 10, 10, 6 }, 133)]
+        public void Score_WhenFrameIsSpare_ShouldIncludeNextFirstThrowPins(int[] throws, int expectedScore)
         {
             //Arrange
-            game.Roll(1);
-            game.Roll(1); //First Frame
-
-            game.Roll(5); //Second Frame
-            game.Roll(5);
-
-            game.Roll(5); //Third Frame
-            game.Roll(4);
+            foreach (var pin in throws)
+            {
+                game.Roll(pin);
+            }
 
             //Act
-            var totalScore =  game.Score();
+            var actualScore = game.Score();
 
-            Assert.Equal(26, totalScore);
-        }
-
-        [Fact]
-        public void Score_WhenFrameIsStrike_ShouldIncludeNextTwoThrowPins()
-        {
-            //Arrange
-            game.Roll(1);
-            game.Roll(1); //First Frame
-
-            game.Roll(10); //Second Frame
-
-            game.Roll(5); //Third Frame
-            game.Roll(4);
-
-            //Act
-            var totalScore = game.Score();
-
-            Assert.Equal(30, totalScore);
+            //Assert
+            Assert.Equal(expectedScore, actualScore);
         }
     }
 }

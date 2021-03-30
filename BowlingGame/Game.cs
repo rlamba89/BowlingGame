@@ -39,7 +39,6 @@
 
         public int Score()
         {
-
             int score = 0;
             int i = 0;
             foreach (var frame in Frames)
