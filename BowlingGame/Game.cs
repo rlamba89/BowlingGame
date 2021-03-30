@@ -12,10 +12,10 @@ namespace BowlingGame
         {
             Frames = new Frame[MaxFrame];
         }
-    }
 
-    public class Frame
-    {
-
+        public void Roll(int pins)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
