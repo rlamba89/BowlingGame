@@ -39,11 +39,18 @@
 
         public int Score()
         {
+
             int score = 0;
             int i = 0;
             foreach (var frame in Frames)
             {
                 if (frame == null) continue;
+
+                if (frame.IsSpare && i < Frames.Length - 1)
+                {
+                    score += Frames[i + 1].FirstThrowPins;
+                }
+               
 
                 score += frame.FrameScore;
                 i++;

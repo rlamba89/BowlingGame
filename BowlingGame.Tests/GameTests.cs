@@ -41,7 +41,7 @@ namespace BowlingGame.Tests
         }
 
         [Fact]
-        public void Score_ShouldReturnSumOfAllTheScoreOfFrames()
+        public void Score_WhenFrameIsSpare_ShouldIncludeNextFirstThrowPins()
         {
             //Arrange
             game.Roll(1);
@@ -50,10 +50,13 @@ namespace BowlingGame.Tests
             game.Roll(5); //Second Frame
             game.Roll(5);
 
+            game.Roll(5); //Third Frame
+            game.Roll(4);
+
             //Act
             var totalScore =  game.Score();
 
-            Assert.Equal(12, totalScore);
+            Assert.Equal(26, totalScore);
         }
     }
 }
