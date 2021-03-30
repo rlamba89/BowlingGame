@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 
 namespace BowlingGame.Tests
 {
@@ -13,38 +10,16 @@ namespace BowlingGame.Tests
             frame = new Frame();
         }
 
-        [Fact]
-        public void Add_ForFirstThrow_ShouldAddFirstThrowPins()
+        [Theory]
+        [InlineData(5, false, false)]
+        [InlineData(10, true, true)]
+        public void Add_ForFirstThrow_ShouldAddFirstThrowPins(int pins, bool isStrike, bool isFrameCompelted)
         {
-            frame.Add(5);
+            frame.Add(pins);
 
-            Assert.Equal(5, frame.FirstThrowPins);
-        }
-
-        [Fact]
-        public void Add_WhenFirstThrowIsStrike_ShouldMarkIsStrikeTruthy()
-        {
-            frame.Add(10);
-
-            Assert.Equal(10, frame.FirstThrowPins);
-            Assert.True(frame.IsStrike);
-        }
-
-        [Fact]
-        public void Add_WhenFirstThrowIsStrike_ShouldCompleteTheFrame()
-        {
-            frame.Add(10);
-
-            Assert.True(frame.IsFrameCompleted);
-        }
-
-        [Fact]
-        public void Add_WhenFirstThrowIsNotStrike_ShouldNotCompleteTheFrame()
-        {
-            frame.Add(5);
-
-            Assert.True(!frame.IsFrameCompleted);
-            Assert.True(!frame.IsStrike);
+            Assert.Equal(pins, frame.FirstThrowPins);
+            Assert.Equal(isStrike, frame.IsStrike);
+            Assert.Equal(isFrameCompelted, frame.IsFrameCompleted);
         }
     }
 }
