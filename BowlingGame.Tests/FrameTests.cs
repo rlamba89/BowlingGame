@@ -23,46 +23,24 @@ namespace BowlingGame.Tests
             Assert.Equal(throwCount, frame.ThrowCount);
         }
 
-        [Fact]
-        public void Add_SecondThrow_ShouldSetSecondThrowPins()
+        [Theory]
+        [InlineData(5, 5, true, true, 2, 10)]
+        [InlineData(1, 5, false, true, 2, 6)]
+        public void Add_SecondThrow_ShouldSetSecondCorrectProperties(int firstThrowPins, int secondThrowPins, bool isSpare, bool isFrameCompelted, int throwCount, int frameScore)
         {
             //Arrange
-            frame.Add(5); //First Throw
+            frame = new Frame();
+            frame.Add(firstThrowPins); //First Throw
 
             //Act
-            frame.Add(5); //Second Throw
-
-            Assert.Equal(5, frame.SecondThrowPins);
-        }
-
-        [Fact]
-        public void Add_SecondThrow_ShouldSetSpareTrueWhenTotalScoreEqualToTotalPins()
-        {
-            //Arrange
-            frame.Add(5); //First Throw
-
-            //Act
-            frame.Add(5); //Second Throw
+            frame.Add(secondThrowPins); //Second Throw
 
             //Assert
-            Assert.Equal(5, frame.SecondThrowPins);
-            Assert.True(frame.IsSpare);
-        }
-
-        [Fact]
-        public void Add_SecondThrow_ShouldMarkFrameCompleted()
-        {
-            //Arrange
-            frame.Add(5); //First Throw
-
-            //Act
-            frame.Add(5); //Second Throw
-
-            //Assert
-            Assert.Equal(5, frame.SecondThrowPins);
-            Assert.True(frame.IsFrameCompleted);
-            Assert.Equal(10, frame.FrameScore);
-            Assert.Equal(2, frame.ThrowCount);
+            Assert.Equal(secondThrowPins, frame.SecondThrowPins);
+            Assert.Equal(isSpare, frame.IsSpare);
+            Assert.Equal(isFrameCompelted, frame.IsFrameCompleted);
+            Assert.Equal(throwCount, frame.ThrowCount);
+            Assert.Equal(frameScore, frame.FrameScore);
         }
 
         [Fact]
@@ -71,6 +49,7 @@ namespace BowlingGame.Tests
             //Arrange
             frame.Add(10); //First Throw
 
+            //Act and Assert
             Assert.Throws<FrameAlreadyCompletedException>(() => frame.Add(5));
         }
     }
